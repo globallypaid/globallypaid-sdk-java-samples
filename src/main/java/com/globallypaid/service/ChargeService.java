@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ChargeService {
 
-  public static final String GLOBALLYPAID_USE_SANDBOX = "GLOBALLYPAID_USE_SANDBOX";
+  public static final String USE_SANDBOX = "USE_SANDBOX";
 
   public ChargeResponse charge(PaymentInstrumentToken paymentInstrumentToken)
       throws IOException, GloballyPaidException {
@@ -21,15 +21,13 @@ public class ChargeService {
     ChargeResponse chargeResponse = null;
 
     String sandbox =
-        Objects.isNull(System.getenv(GLOBALLYPAID_USE_SANDBOX))
-            ? "true"
-            : System.getenv(GLOBALLYPAID_USE_SANDBOX);
+        Objects.isNull(System.getenv(USE_SANDBOX)) ? "true" : System.getenv(USE_SANDBOX);
     GloballyPaid globallyPaid =
         new GloballyPaid(
             Config.builder()
-                .apiKey(System.getenv("GLOBALLYPAID_API_KEY"))
-                .appIdKey(System.getenv("GLOBALLYPAID_APP_ID_KEY"))
-                .sharedSecretApiKey(System.getenv("GLOBALLYPAID_SHARED_SECRET_API_KEY"))
+                .publishableApiKey(System.getenv("PUBLISHABLE_API_KEY"))
+                .appId(System.getenv("APP_ID"))
+                .sharedSecret(System.getenv("SHARED_SECRET"))
                 .sandbox(sandbox)
                 .build());
 

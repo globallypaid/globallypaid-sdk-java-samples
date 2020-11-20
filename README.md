@@ -17,17 +17,17 @@ It uses this dependency in the POM:
 <dependency>
   <groupId>com.globallypaid</groupId>
   <artifactId>globallypaid-java</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
 </dependency>
 ```
 
 To run the project sample you need to set the following 
 Environment variables (see [GloballyPaid Java SDK][globallypaid-sdk-java-env]):
 
-* `GLOBALLYPAID_SHARED_SECRET_API_KEY`
-* `GLOBALLYPAID_APP_ID_KEY`
-* `GLOBALLYPAID_API_KEY`
-* `GLOBALLYPAID_USE_SANDBOX`
+* `PUBLISHABLE_API_KEY`
+* `APP_ID`
+* `SHARED_SECRET`
+* `USE_SANDBOX`
 
 ##### Make a Charge Sale Transaction with Javascript SDK integration
 ```java
@@ -37,7 +37,6 @@ import com.globallypaid.http.RequestOptions;
 import com.globallypaid.model.ChargeRequest;
 import com.globallypaid.model.ChargeResponse;
 import com.globallypaid.model.PaymentInstrumentToken;
-import java.io.IOException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -51,10 +50,10 @@ public class ChargeService {
     GloballyPaid globallyPaid =
         new GloballyPaid(
             Config.builder()
-                .apiKey(System.getenv("GLOBALLYPAID_API_KEY"))
-                .appIdKey(System.getenv("GLOBALLYPAID_APP_ID_KEY"))
-                .sharedSecretApiKey(System.getenv("GLOBALLYPAID_SHARED_SECRET_API_KEY"))
-                .sandbox(System.getenv("GLOBALLYPAID_USE_SANDBOX"))
+                .publishableApiKey(System.getenv("PUBLISHABLE_API_KEY"))
+                .appId(System.getenv("APP_ID"))
+                .sharedSecret(System.getenv("SHARED_SECRET"))
+                .sandbox(System.getenv("USE_SANDBOX"))
                 .build());
 
     if (paymentInstrumentToken != null && !paymentInstrumentToken.getId().isEmpty()) {
